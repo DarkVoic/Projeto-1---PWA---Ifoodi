@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ifoodi</title>
+    <link
+      rel="manifest"
+      href="./manifest.webmanifest"
+      crossorigin="use-credentials"
+    />
+    <link rel="icon" type="image/png" href="./assets/appicons/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Tô Ferrado" />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./assets/icons/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./assets/icons/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="./assets/icons/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./assets/icons/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/icons/apple-icon-180x180.png"
+    />
+    <link rel="stylesheet" href="./ifoodi.css"/>
+    <link rel="stylesheet" href="./inicialize.css"/>
+    <script src="./ifoodi.js"></script>
+    <script src="./inicialize.js"></script>
+</head>
+<body>
+    <header class="headerBar dark">
+        <img class="cabecalho" src="./assets/HeaderDelivery.png"/>
+        <div class="appName">Ifoodi - Gestão de Restaurante</div>
+        <div class="badge primary"><span id="estado">0</span></div>
+        
+    </header>
+
+    <nav class="navBar">
+        <div class="buttonGroup">
+            <button id="tab1" class="button active">Home</button>
+            <button id="tab2" class="button">Clientes</button>
+            <button id="tab3" class="button">Produtos</button>
+            <button id="tab4" class="button">Venda</button>
+        </div>
+    </nav>
+
+    <div id="tela1" class="component">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Vendas</h1>
+        <button id="btnAdic" class="button primary">
+          <img src="./assets/plus1.png" />
+        </button>
+      </div>
+      <div class="componentContent">
+        <div id="blank">
+          <img src="./assets/hangloose.png" />
+          <p>Nada a fazer agora.</p>
+        </div>
+        <ul id="listaDeTarefas" class="list hidden"></ul>
+      </div>
+    </div>
+
+    <div id="tela2" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Nova tarefa</h1>
+      </div>
+      <div class="componentContent">
+        <div class="field">
+          <label for="inputNovaTarefa">Tarefa:</label>
+          <input id="inputNovaTarefa" type="text" autocomplete="off" />
+        </div>
+        <div class="buttonGroup mt1 end">
+          <button id="btnCanc1" class="button quarter light">Cancelar</button>
+          <button id="btnInc" class="button quarter primary" disabled>
+            Incluir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tela3" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Alteração de tarefa</h1>
+      </div>
+      <div class="componentContent">
+        <div class="field">
+          <label for="inputAlteraTarefa">Tarefa:</label>
+          <input id="inputAlteraTarefa" type="text" autocomplete="off" />
+        </div>
+        <div class="buttonGroup end mt1">
+          <button id="btnCanc2" class="button quarter light">Cancelar</button>
+          <button id="btnAlt" class="button quarter primary">Alterar</button>
+        </div>
+        <div class="buttonGroup end mt3">
+          <button id="btnDel" class="button quarter danger">
+            Apagar tarefa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tela4" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">QR-Code</h1>
+      </div>
+      <div class="componentContent">
+        <div id="qrcode">
+          <p>
+            <img src="./assets/qrcode.png" />
+          </p>
+          <p class="mt2">
+            <button id="btnFechaQRCode" class="button secondary">Fechar</button>
+          </p>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
