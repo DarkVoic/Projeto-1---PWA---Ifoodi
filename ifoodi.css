@@ -1,0 +1,14 @@
+#blank {
+  text-align: center;
+  padding-top: 5rem;
+  width: 100%;
+  opacity: 0.25;
+}
+
+#blank *, #qrcode * {
+  text-align: center;
+}
+
+#qrcode {
+  width: 100%;
+}
