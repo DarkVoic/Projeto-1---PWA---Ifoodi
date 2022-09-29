@@ -37,23 +37,23 @@ Telas:
 
 ### Explicação dos dados (da lista) que sua aplicação armazena.
 A aplicação armazena os seguintes dados no **localStorage**:
-Lista de pedidos: 
-*    1. Id: Id do registro (que é gerado automaticamente quando criamos o pedido);
-*    2. codigo: Codigo do pedido (que é gerado automaticamente quando criamos o pedido);
-*    3. clientePedido: Nome do cliente;
-*    4. produtoPedido: Nome do produto;
-*    5. valor: valor do pedido.
-Lista de clientes:
-*    1. Id: Id do registro (que é gerado automaticamente quando criamos o cliente);
-*    2. nome: Nome completo do cliente;
-*    3. endereço: endereço completo do cliente;
-*    4. telefone: numero de telefone do cliente;
-*    5. pagamento: forma de pagamento que o cliente paga.
-Lista de produtos:
-*    1. Id: Id do registro (que é gerado automaticamente quando criamos o produto);
-*    2. nome: Nome do produto;
-*    3. descrição: descrição do produto;
-*    4. quantidade: quantidade desse produto no estoque;
+* Lista de pedidos: 
+  *    1. Id: Id do registro (que é gerado automaticamente quando criamos o pedido);
+  *    2. codigo: Codigo do pedido (que é gerado automaticamente quando criamos o pedido);
+  *    3. clientePedido: Nome do cliente;
+  *    4. produtoPedido: Nome do produto;
+  *    5. valor: valor do pedido.
+* Lista de clientes:
+  *    1. Id: Id do registro (que é gerado automaticamente quando criamos o cliente);
+  *    2. nome: Nome completo do cliente;
+  *    3. endereço: endereço completo do cliente;
+  *    4. telefone: numero de telefone do cliente;
+  *    5. pagamento: forma de pagamento que o cliente paga.
+* Lista de produtos:
+  *    1. Id: Id do registro (que é gerado automaticamente quando criamos o produto);
+  *    2. nome: Nome do produto;
+  *    3. descrição: descrição do produto;
+  *    4. quantidade: quantidade desse produto no estoque;
 
 ## Resposta (sim ou não) às seguintes questões:
 * A aplicação é original e não uma cópia da aplicação de um colega ou de uma aplicação já existente?
