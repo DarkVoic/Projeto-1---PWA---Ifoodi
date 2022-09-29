@@ -1,6 +1,7 @@
-//nome do Cache
+// Define o nome do cache atual, considerando a sua versão.//nome do Cache
 var cacheName = 'Ifoodi-v1.1';
 
+// Armazena todos os arquivos no cache atual
 // Instalando o Service Work e iniciando o Cache
 self.addEventListener('install', function (event) {
   caches.open(cacheName).then((cache) => {
@@ -10,14 +11,18 @@ self.addEventListener('install', function (event) {
       '/index.html',
       '/manifest.webmanifest',
       '/ifoodi.css',
-      '/inicialize.css',
       '/ifoodi.js',
-      '/inicialize.js',
       '/assets/delete.png',
       '/assets/edit.png',
-      '/assets/iconeDeliveryIfoodi.png',
+      '/assets/header-ifoodi.jpg',
+      '/assets/ifoodi.png',
+      '/assets/carrinho-vazio.png',
+      '/assets/ClienteVazio.png',
+      '/assets/ProdutoVazio.png',
       '/assets/plus0.png',
       '/assets/plus1.png',
+      '/assets/QRCode.png',
+      '/assets/icons/favicon.ico',
       '/assets/icons/android-icon-36x36.png',
       '/assets/icons/android-icon-48x48.png',
       '/assets/icons/android-icon-72x72.png',
@@ -30,13 +35,14 @@ self.addEventListener('install', function (event) {
       '/assets/icons/apple-icon-120x120.png',
       '/assets/icons/apple-icon-144x144.png',
       '/assets/icons/apple-icon-152x152.png',
-      '/assets/icons/apple-icon-180x180.png'
+      '/assets/icons/apple-icon-180x180.png',
     ]);
   });
 });
 
 
-// Service Worker quando ativado
+// Recupera todos os nomes de cache e apaga aqueles
+// que forem diferentes do cache atual// Service Worker quando ativado
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keyList) => {
@@ -51,7 +57,9 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Service Worker depois que a página carrega e chama o cache
+// Tenta servir o arquivo do cache atual. Se não for possível,
+// baixa o recurso da web e o armazena localmente, antes de entregar
+// uma cópia para o usuário.
 self.addEventListener('fetch', function (event) { 
   let resposta = caches.open(cacheName).then((cache) => { 
     return cache.match(event.request).then((recurso) => { 

@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ifoodi</title>
+    <title id="titulo">Ifoodi</title>
     <link
       rel="manifest"
       href="./manifest.webmanifest"
       crossorigin="use-credentials"
     />
-    <link rel="icon" type="image/png" href="./assets/appicons/favicon.ico" />
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.ico" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="Tô Ferrado" />
+    <meta name="apple-mobile-web-app-title" content="Ifoodi" />
     <link
       rel="apple-touch-icon"
       sizes="72x72"
@@ -40,90 +40,342 @@
       href="./assets/icons/apple-icon-180x180.png"
     />
     <link rel="stylesheet" href="./ifoodi.css"/>
-    <link rel="stylesheet" href="./inicialize.css"/>
     <script src="./ifoodi.js"></script>
-    <script src="./inicialize.js"></script>
 </head>
 <body>
-    <header class="headerBar dark">
-        <img class="cabecalho" src="./assets/HeaderDelivery.png"/>
-        <div class="appName">Ifoodi - Gestão de Restaurante</div>
-        <div class="badge primary"><span id="estado">0</span></div>
-        
+    <header class="headerBar">
+        <div class="imagemHeader">
+            <img style="width: 90%" src="./assets/ifoodi.png" alt="">
+        </div>
+        <div class="appName">Gestão de Restaurante</div>
     </header>
 
     <nav class="navBar">
         <div class="buttonGroup">
-            <button id="tab1" class="button active">Home</button>
-            <button id="tab2" class="button">Clientes</button>
-            <button id="tab3" class="button">Produtos</button>
-            <button id="tab4" class="button">Venda</button>
+            <a id="tabHome" class="link-abas active" >Home</a>
+            <a id="tabPedidos" class="link-abas">Pedidos</a>
+            <a id="tabClientes" class="link-abas">Cliente</a>
+            <a id="tabProdutos" class="link-abas">Produtos</a>
         </div>
     </nav>
 
-    <div id="tela1" class="component">
+    <!--Tela HOME com as informações do dia-->
+    <div id="relatorio" class="component imagemRelatorio">
       <div class="componentHeader">
-        <h1 class="componentTitle">Vendas</h1>
-        <button id="btnAdic" class="button primary">
-          <img src="./assets/plus1.png" />
-        </button>
+        <h1 class="componentTitle">Relatório</h1>
       </div>
       <div class="componentContent">
-        <div id="blank">
-          <img src="./assets/hangloose.png" />
-          <p>Nada a fazer agora.</p>
+       <div style="margin-top: 0" class="quantidade">
+          <div><h2>Quantidade de pedidos</h2></div>
+          <div class="badge primary"><span id="qtdPedidos">0</span></div>
         </div>
-        <ul id="listaDeTarefas" class="list hidden"></ul>
+        <div class="quantidade">
+          <div><h2>Quantidade de clientes</h2></div>
+          <div class="badge primary"><span id="qtdClientes">0</span></div>
+        </div>
+        <div class="quantidade">
+          <div><h2>Quantidade de produtos</h2></div>
+          <div class="badge primary"><span id="qtdProdutos">0</span></div>
+        </div>
       </div>
     </div>
 
-    <div id="tela2" class="component hidden">
+    <!--Tela com a lista de pedidos-->
+    <div id="pedidoListar" class="component hidden">
       <div class="componentHeader">
-        <h1 class="componentTitle">Nova tarefa</h1>
+        <h1 class="componentTitle">Pedidos</h1>
+        <button id="btnAdicPedido" class="button primary">
+          </h3><img src="./assets/plus1.png" />
+        </button>
       </div>
       <div class="componentContent">
         <div class="field">
-          <label for="inputNovaTarefa">Tarefa:</label>
-          <input id="inputNovaTarefa" type="text" autocomplete="off" />
+          <div id="blankPedidos">
+              <p class="nenhumRegistro" >Nenhum pedido realizado</p>
+          </div>
+        <ul id="listaDePedidos" class="list hidden"></ul>
         </div>
-        <div class="buttonGroup mt1 end">
-          <button id="btnCanc1" class="button quarter light">Cancelar</button>
-          <button id="btnInc" class="button quarter primary" disabled>
+      </div>
+    </div>
+
+    <!--Tela para incluir pedido-->
+     <div id="pedidoIncluir" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Novo pedido</h1>
+      </div> 
+      <div class="componentContent">
+        <div class="form">
+          <form action="formulario">
+            <div class="field">
+              <label class="labelPedido" for="clientePedido">Cliente:</label>
+              <select name="cliente" id="inputNovoClientePedido" class="dropdown">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="labelPedido" for="produtoPedido">Produto:</label>
+              <select name="produto" id="inputNovoProdutoPedido" class="dropdown">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="labelPedido" for="inputNovoValorPedido">valor:</label>
+              <input id="inputNovoValorPedido" type="number" name="valorPedido"/>
+            </div>
+          </form>
+        </div>
+        <div class="buttonGroup mt3 end">
+          <button id="btnCancPedido" class="button quarter danger">Cancelar</button>
+          <button id="btnIncPedido" class="button quarter success" disabled>
+            Incluir
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!--Tela para editar e excluir pedido -->
+    <div id="pedidoEditar" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Alteração de pedido</h1>
+      </div>
+      <div class="componentContent">
+        <div class="form">
+          <form action="formulario">
+             <div class="field">
+                <label class="labelPedido" for="inputCodigoPedido">Código:</label>
+                <input id="inputCodigoPedido" type="text" autocomplete="off" readonly="readonly" />  
+              </div>
+            <div class="field">
+              <label class="labelPedido" for="inputAltClientePedido">Cliente:</label>
+              <select name="cliente" id="inputAltClientePedido" class="dropdown">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="labelPedido" for="inputAltProdutoPedido">Produto:</label>
+              <select name="produto" id="inputAltProdutoPedido" class="dropdown">
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="labelPedido" for="inputAltValorPedido">valor:</label>
+              <input id="inputAltValorPedido" type="number" name="valorPedido"/>
+            </div>
+          </form>
+        </div>
+        </div>
+        <div class="buttonGroup end mt1">
+          <button id="btnCanc2Pedido" class="button quarter warning">Cancelar</button>
+          <button id="btnAltPedido" class="button quarter dark">Alterar</button>
+        </div>
+        <div class="buttonGroup end mt3">
+          <button id="btnDelPedido" class="button quarter danger">
+            Apagar pedido
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--Tela com a lista de Cliente-->
+    <div id="clienteListar" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Clientes</h1>
+        <button id="btnAdicCliente" class="button primary">
+          </h3><img src="./assets/plus1.png" />
+        </button>
+      </div>
+      <div class="componentContent">
+        <div class="field">
+          <div id="blankClientes">
+              <p class="nenhumRegistro" >Nenhum registro de cliente</p>
+          </div>
+        <ul id="listaDeClientes" class="list hidden"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Tela para cadastrar clientes-->
+    <div id="clienteIncluir" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Novo cliente</h1>
+      </div> 
+      <div class="componentContent">
+        <div class="form">
+            <form action="formulario">
+              <div class="field">
+                <label class="labelCliente" for="inputNovoNomeCliente">Nome completo:</label>
+                <input id="inputNovoNomeCliente" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputNovoEnderecoCliente">endereço completo:</label>
+                <input id="inputNovoEnderecoCliente" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputNovoTelefoneCliente">Telefone:</label>
+                <input id="inputNovoTelefoneCliente" type="tel" name="tel" maxlength="15" pattern="\(\d{2}\)\s*\d{5}-\d{4}" required />  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputNovoPagamentoCliente">Forma de pagamento:</label>
+                <select name="dropdownPagamento" id="inputNovoPagamentoCliente" class="dropdown">
+                  <option value="Nulo" class="dropdownLabel">Selecione </option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Pix">Transferência PIX</option>
+                  <option value="Credito">Cartão de crédito</option>
+                  <option value="Debito">Cartão de débito</option>
+                  <option value="ValeRefeicao">Vale Refeição</option>
+                  <option value="ValeAlimentacao">Vale Alimentação</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="buttonGroup mt3 end">
+          <button id="btnCancCliente" class="button quarter danger">Cancelar</button>
+          <button id="btnIncCliente" class="button quarter success" disabled>
             Incluir
           </button>
         </div>
       </div>
     </div>
 
-    <div id="tela3" class="component hidden">
+    <!--Tela para editar e excluir cliente -->
+    <div id="clienteEditar" class="component hidden">
       <div class="componentHeader">
-        <h1 class="componentTitle">Alteração de tarefa</h1>
+        <h1 class="componentTitle">Alteração de cliente</h1>
       </div>
       <div class="componentContent">
-        <div class="field">
-          <label for="inputAlteraTarefa">Tarefa:</label>
-          <input id="inputAlteraTarefa" type="text" autocomplete="off" />
+        <div class="form">
+          <form action="formulario">
+              <div class="field">
+                <label class="labelCliente" for="inputAltNomeCliente">Nome completo:</label>
+                <input id="inputAltNomeCliente" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputAltEnderecoCliente">endereço completo:</label>
+                <input id="inputAltEnderecoCliente" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputAltTelefoneCliente">Telefone:</label>
+                <input id="inputAltTelefoneCliente" type="tel" name="tel" maxlength="15" pattern="\(\d{2}\)\s*\d{5}-\d{4}" required  />  
+              </div>
+              <div class="field">
+                <label class="labelCliente" for="inputAltPagamentoCliente">Forma de pagamento:</label>
+                <select name="dropdownPagamento" id="inputAltPagamentoCliente" class="dropdown">
+                  <option value="Nulo" class="dropdownLabel">Selecione </option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Pix">Transferência PIX</option>
+                  <option value="Credito">Cartão de crédito</option>
+                  <option value="Debito">Cartão de débito</option>
+                  <option value="ValeRefeicao">Vale Refeição</option>
+                  <option value="ValeAlimentacao">Vale Alimentação</option>
+                </select>
+              </div>
+            </form>
+        </div>
         </div>
         <div class="buttonGroup end mt1">
-          <button id="btnCanc2" class="button quarter light">Cancelar</button>
-          <button id="btnAlt" class="button quarter primary">Alterar</button>
+          <button id="btnCanc2Cliente" class="button quarter warning">Cancelar</button>
+          <button id="btnAltCliente" class="button quarter dark">Alterar</button>
         </div>
         <div class="buttonGroup end mt3">
-          <button id="btnDel" class="button quarter danger">
-            Apagar tarefa
+          <button id="btnDelCliente" class="button quarter danger">
+            Apagar cliente
           </button>
         </div>
       </div>
     </div>
 
-    <div id="tela4" class="component hidden">
+    <!--Tela com a lista de produtos-->
+    <div id="produtoListar" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Produtos</h1>
+        <button id="btnAdicProduto" class="button primary">
+          </h3><img src="./assets/plus1.png" />
+        </button>
+      </div>
+      <div class="componentContent">
+        <div class="field">
+          <div id="blankProdutos">
+              <p class="nenhumRegistro" >Nenhum registro de produto</p>
+          </div>
+        <ul id="listaDeProdutos" class="list hidden"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Tela para cadastrar produtos-->
+    <div id="produtoIncluir" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Novo produto</h1>
+      </div> 
+      <div class="componentContent">
+        <div class="form">
+            <form action="formulario">
+              <div class="field">
+                <label class="labelProduto" for="inputNovoNomeProduto">Nome:</label>
+                <input id="inputNovoNomeProduto" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelProduto" for="inputNovoDescricaoProduto">Descrição:</label>
+                <input id="inputNovoDescricaoProduto" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelProduto" for="inputNovoQuantidadeProduto">Quantidade:</label>
+                <input id="inputNovoQuantidadeProduto" type="number" autocomplete="off"/>  
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="buttonGroup mt3 end">
+          <button id="btnCancProduto" class="button quarter danger">Cancelar</button>
+          <button id="btnIncProduto" class="button quarter success" disabled>
+            Incluir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--Tela para editar e excluir produtos -->
+    <div id="produtoEditar" class="component hidden">
+      <div class="componentHeader">
+        <h1 class="componentTitle">Alteração de produto</h1>
+      </div>
+      <div class="componentContent">
+        <div class="form">
+            <form action="formulario">
+              <div class="field">
+                <label class="labelProduto" for="inputAltNomeProduto">Nome:</label>
+                <input id="inputAltNomeProduto" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelProduto" for="inputAltDescricaoProduto">Descrição:</label>
+                <input id="inputAltDescricaoProduto" type="text" autocomplete="off"/>  
+              </div>
+              <div class="field">
+                <label class="labelProduto" for="inputAltQuantidadeProduto">Quantidade:</label>
+                <input id="inputAltQuantidadeProduto" type="number" autocomplete="off"/>  
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="buttonGroup end mt1">
+          <button id="btnCanc2Produto" class="button quarter warning">Cancelar</button>
+          <button id="btnAltProduto" class="button quarter dark">Alterar</button>
+        </div>
+        <div class="buttonGroup end mt3">
+          <button id="btnDelProduto" class="button quarter danger">
+            Apagar produto
+          </button>
+        </div>
+      </div>
+      <div id="linkQRCode" class="component hidden">
       <div class="componentHeader">
         <h1 class="componentTitle">QR-Code</h1>
       </div>
       <div class="componentContent">
         <div id="qrcode">
           <p>
-            <img src="./assets/qrcode.png" />
+            <img src="./assets/QRCode.png" />
           </p>
           <p class="mt2">
             <button id="btnFechaQRCode" class="button secondary">Fechar</button>
