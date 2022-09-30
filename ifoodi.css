@@ -41,12 +41,12 @@ p {
   display:flexbox;
   width: 90%;
   text-align: center;
-  margin-top: 10rem;
-  padding-top: 10rem;
+  margin-top: 1rem;
+  padding-top: 4rem;
   padding-bottom: 3rem;
   opacity: 0.35;
   background: url("./assets/carrinho-vazio.png") no-repeat center;
-  background-size: 20%;
+  background-size: 15%;
   position:fixed;
   color: #000;
   font-weight: bold;
@@ -56,8 +56,8 @@ p {
   display:flexbox;
   width: 90%;
   text-align: center;
-  margin-top: 10rem;
-  padding-top: 10rem;
+  margin-top: 1rem;
+  padding-top: 4rem;
   padding-bottom: 3rem;
   opacity: 0.35;
   background: url("./assets/ClienteVazio.png") no-repeat center;
@@ -71,8 +71,8 @@ p {
   display:flexbox;
   width: 90%;
   text-align: center;
-  margin-top: 10rem;
-  padding-top: 10rem;
+  margin-top: 1rem;
+  padding-top: 4rem;
   padding-bottom: 3rem;
   opacity: 0.25;
   background: url("./assets/ProdutoVazio.png") no-repeat center;
@@ -88,9 +88,10 @@ p {
   width: 100%;
 }
 @media screen and (max-width:553px){
-    #blankPedidos{background-size: 50%;}
+    #blankPedidos{background-size: 40%;}
     #blankClientes{background-size: 50%;}
     #blankProdutos{background-size: 50%;}
+    .imagemHeader{width: 5%;}
 }
 
 .headerBar {
@@ -215,7 +216,7 @@ p {
   text-align: center;
   height: 2rem;
   min-width: 3rem;
-  padding: 0 1.5rem 0 1.5rem;
+  padding: 0 0.8rem 0 0.8rem;
   color: #000;
   text-decoration: none;
 }
