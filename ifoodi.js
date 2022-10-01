@@ -194,6 +194,23 @@ onload = () => {
 
   //funções dos botões da tela de Pedido
   document.querySelector('#btnAdicPedido').onclick = () => {
+    //Constrói o dropdown de clientes
+    const dropdownCliente = document.querySelector('#inputNovoClientePedido');
+    clientes.forEach((t) => {
+      let optionCliente  = document.createElement('option');
+      optionCliente.value = t.id;
+      optionCliente.text = t.nome;
+      dropdownCliente.appendChild(optionCliente);
+    });
+    //Constrói o dropdown de produtos
+    const dropdownProduto = document.querySelector('#inputNovoProdutoPedido');
+    produtos.forEach((t) => {
+      let optionProduto  = document.createElement('option');
+      optionProduto.value = t.id;
+      optionProduto.text = t.nome;
+      dropdownProduto.appendChild(optionProduto);
+    });
+
     document.querySelector('#btnIncPedido').disabled = true;
     mostra('pedidoIncluir');
     document.querySelector('#inputNovoValorPedido').focus();
@@ -321,18 +338,38 @@ const mostraPedidos = () => {
   const listaDePedidos = document.querySelector('#listaDePedidos');
   listaDePedidos.innerHTML = '';
   pedidos.forEach((t) => {
+    let nomeCliente;
+    clientes.forEach((c) => {
+      if(t.clientePedido = c.id){
+        nomeCliente = c.nome;
+      }
+    })
     let elemPedido  = document.createElement('li');
-    elemPedido.innerHTML = t.codigo;
+    elemPedido.innerHTML = t.codigo + ' - ' + nomeCliente;
     elemPedido.setAttribute('data-id', t.id);
     elemPedido.onclick = () => {
       let campo = document.querySelector('#inputCodigoPedido');
-      let campo1 = document.querySelector('#inputAltClientePedido');
-      let campo2 = document.querySelector('#inputAltProdutoPedido');
+      //Constrói o dropdown de clientes
+      const dropdownCliente = document.querySelector('#inputAltClientePedido');
+      clientes.forEach((t) => {
+        let optionCliente  = document.createElement('option');
+        optionCliente.value = t.id;
+        optionCliente.text = t.nome;
+        dropdownCliente.appendChild(optionCliente);
+      });
+      //Constrói o dropdown de produtos
+      const dropdownProduto = document.querySelector('#inputAltProdutoPedido');
+      produtos.forEach((t) => {
+        let optionProduto  = document.createElement('option');
+        optionProduto.value = t.id;
+        optionProduto.text = t.nome;
+        dropdownProduto.appendChild(optionProduto);
+      });
       let campo3 = document.querySelector('#inputAltValorPedido');
       mostra('pedidoEditar');
       campo.value = t.codigo;
-      campo1.value = t.clientePedido;
-      campo2.value = t.produtoPedido;
+      dropdownCliente.value = t.clientePedido;
+      dropdownProduto.value = t.produtoPedido;
       campo3.value = t.valorPedido;
       campo.setAttribute('data-id', t.id);
       campo3.focus();
@@ -431,10 +468,11 @@ const adicionaPedido = () => {
   let clientePedido = campo1.value;
   let produtoPedido = campo2.value;
   let valorPedido = campo3.value;
+  let codigo = 0;
   if (clientePedido != '' && produtoPedido != '' && valorPedido > 0) {
     pedidos.push({
       id: Math.random().toString().replace('0.', ''),
-      codigo: Math.random().toString().replace('0.', ''),
+      codigo: ++codigo,
       clientePedido: clientePedido,
       produtoPedido: produtoPedido,
       valorPedido: valorPedido,
